@@ -1,4 +1,4 @@
-import { DhowArt } from "./art/DhowArt";
+import Image from "next/image";
 import { Icon } from "./icons";
 import { Reveal } from "./Reveal";
 import { TiltCard } from "./TiltCard";
@@ -95,8 +95,18 @@ export function Hero() {
               className="glass-panel rounded-[2.4rem] p-2.5 sm:rounded-[2.75rem] sm:p-3"
             >
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.9rem] sm:rounded-[2.2rem]">
-                <DhowArt className="absolute inset-0 h-full w-full" />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050c15]/85 via-transparent to-[#050c15]/10" />
+                <Image
+                  src="/images/nungwi-dhow.jpg"
+                  alt="A dhow sailing across a golden sunset off Nungwi, Zanzibar"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 90vw, 42vw"
+                  quality={88}
+                  style={{ objectPosition: "center 44%" }}
+                  className="object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050c15]/90 via-[#050c15]/10 to-[#050c15]/45" />
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_18%,rgba(249,115,22,0.14),transparent_55%)]" />
                 <div className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/10" />
 
                 <div className="absolute inset-x-4 top-4 flex items-center justify-between gap-3">
@@ -123,7 +133,7 @@ export function Hero() {
               </div>
             </TiltCard>
 
-            <div className="glass-panel-soft animate-float absolute -left-4 top-[22%] hidden items-center gap-2.5 rounded-2xl px-3.5 py-2.5 sm:flex">
+            <div className="glass-chip animate-float absolute -left-4 top-[22%] hidden items-center gap-2.5 rounded-2xl px-3.5 py-2.5 sm:flex">
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-300/10 text-amber-200">
                 <Icon name="sun" className="h-4 w-4" />
               </span>
@@ -135,7 +145,7 @@ export function Hero() {
               </div>
             </div>
 
-            <div className="glass-panel-soft animate-float-slow absolute -right-2 bottom-[18%] hidden items-center gap-2 rounded-full py-2 pl-2.5 pr-3.5 sm:flex">
+            <div className="glass-chip animate-float-slow absolute -right-2 bottom-[18%] hidden items-center gap-2 rounded-full py-2 pl-2.5 pr-3.5 sm:flex">
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-cyan-300/10 text-cyan-200">
                 <Icon name="wave" className="h-3.5 w-3.5" />
               </span>

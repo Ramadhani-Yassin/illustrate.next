@@ -1,16 +1,8 @@
+import Image from "next/image";
 import type { Chapter } from "../lib/chapters";
-import { DhowArt } from "./art/DhowArt";
-import { RhythmArt } from "./art/RhythmArt";
-import { StoneTownArt } from "./art/StoneTownArt";
 import { Icon } from "./icons";
 import { Reveal } from "./Reveal";
 import { TiltCard } from "./TiltCard";
-
-const artMap = {
-  stone: StoneTownArt,
-  dhow: DhowArt,
-  rhythm: RhythmArt,
-} as const;
 
 type ChapterSectionProps = {
   chapter: Chapter;
@@ -18,7 +10,6 @@ type ChapterSectionProps = {
 };
 
 export function ChapterSection({ chapter, index }: ChapterSectionProps) {
-  const Art = artMap[chapter.art];
   const reversed = index % 2 === 1;
 
   return (
@@ -85,8 +76,17 @@ export function ChapterSection({ chapter, index }: ChapterSectionProps) {
 
               <TiltCard className="glass-panel overflow-hidden rounded-[2rem] p-2.5 sm:rounded-[2.4rem] sm:p-3">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] sm:rounded-[1.9rem]">
-                  <Art className="absolute inset-0 h-full w-full" />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050c15]/80 via-transparent to-[#050c15]/15" />
+                  <Image
+                    src={chapter.image.src}
+                    alt={chapter.image.alt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    quality={85}
+                    style={{ objectPosition: chapter.image.position }}
+                    className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050c15]/85 via-[#050c15]/10 to-[#050c15]/40" />
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_18%,rgba(6,182,212,0.12),transparent_55%)]" />
                   <div className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/10" />
 
                   <div className="absolute left-4 top-4">

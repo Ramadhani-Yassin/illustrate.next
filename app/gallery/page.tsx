@@ -1,9 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import type { ComponentType } from "react";
 import { AmbientBackground } from "../components/AmbientBackground";
-import { DhowArt } from "../components/art/DhowArt";
-import { RhythmArt } from "../components/art/RhythmArt";
-import { StoneTownArt } from "../components/art/StoneTownArt";
 import { Footer } from "../components/Footer";
 import { Icon } from "../components/icons";
 import { Navbar } from "../components/Navbar";
@@ -16,8 +13,13 @@ type Note = {
   title: string;
   text: string;
   meta: string;
-  art: ComponentType<{ className?: string }>;
   ratio: string;
+  sizes: string;
+  image: {
+    src: string;
+    alt: string;
+    position?: string;
+  };
 };
 
 const notes: Note[] = [
@@ -27,8 +29,13 @@ const notes: Note[] = [
     title: "The doors remember",
     text: "Brass studs, carved lotus and arched frames. Every entrance in the old town is a quiet autobiography.",
     meta: "6°09′S",
-    art: StoneTownArt,
     ratio: "aspect-[16/10]",
+    sizes: "(max-width: 767px) 92vw, (max-width: 1280px) 58vw, 720px",
+    image: {
+      src: "/images/stone-town.jpeg",
+      alt: "Warm evening light over Zanzibar island life",
+      position: "center 55%",
+    },
   },
   {
     index: "02",
@@ -36,17 +43,41 @@ const notes: Note[] = [
     title: "A sail at golden hour",
     text: "The lateen sail leans into the monsoon, and for a moment the horizon belongs to the dhow.",
     meta: "5°43′S",
-    art: DhowArt,
     ratio: "aspect-[4/3]",
+    sizes: "(max-width: 767px) 92vw, (max-width: 1280px) 38vw, 480px",
+    image: {
+      src: "/images/nungwi-dhow.jpg",
+      alt: "A dhow silhouetted against a golden Indian Ocean sunset",
+      position: "center 42%",
+    },
   },
   {
     index: "03",
-    kicker: "After dark",
-    title: "The tempo of the coast",
-    text: "Taarab in a courtyard, drums in Makunduchi, the low hum of a city that never fully sleeps.",
-    meta: "6°25′S",
-    art: RhythmArt,
+    kicker: "Fumba",
+    title: "The blue lagoon",
+    text: "At low tide a white sandbank surfaces mid-channel — reachable only by dhow, and only until the water returns.",
+    meta: "6°18′S",
     ratio: "aspect-[4/3]",
+    sizes: "(max-width: 767px) 92vw, (max-width: 1280px) 38vw, 480px",
+    image: {
+      src: "/images/blue-lagoon.jpg",
+      alt: "Turquoise water and pale sand along the Zanzibar coast",
+      position: "center 55%",
+    },
+  },
+  {
+    index: "04",
+    kicker: "Prison Island",
+    title: "Giants of the island",
+    text: "A short sail from Stone Town, where century-old tortoises move at their own unhurried pace.",
+    meta: "6°07′S",
+    ratio: "aspect-[16/9] sm:aspect-[21/9]",
+    sizes: "(max-width: 767px) 92vw, (max-width: 1280px) 90vw, 1120px",
+    image: {
+      src: "/images/prison-island.avif",
+      alt: "A giant tortoise on Prison Island, Zanzibar",
+      position: "center 62%",
+    },
   },
 ];
 
@@ -58,13 +89,21 @@ const pocketNotes = [
 ];
 
 function NoteCard({ note }: { note: Note }) {
-  const Art = note.art;
-
   return (
-    <TiltCard className="glass-panel h-full overflow-hidden rounded-[2rem] p-2.5 sm:rounded-[2.4rem] sm:p-3">
-      <div className={`relative ${note.ratio} overflow-hidden rounded-[1.5rem] sm:rounded-[1.9rem]`}>
-        <Art className="absolute inset-0 h-full w-full" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050c15]/70 via-transparent to-[#050c15]/10" />
+    <TiltCard className="glass-panel group h-full overflow-hidden rounded-[2rem] p-2.5 sm:rounded-[2.4rem] sm:p-3">
+      <div
+        className={`relative ${note.ratio} overflow-hidden rounded-[1.5rem] sm:rounded-[1.9rem]`}
+      >
+        <Image
+          src={note.image.src}
+          alt={note.image.alt}
+          fill
+          sizes={note.sizes}
+          quality={85}
+          style={{ objectPosition: note.image.position }}
+          className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050c15]/80 via-[#050c15]/5 to-[#050c15]/40" />
         <div className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/10" />
         <span className="glass-chip absolute left-4 top-4 rounded-full px-3 py-1.5 font-display text-[9px] tracking-[0.2em] text-white/70">
           {note.index}
@@ -169,6 +208,10 @@ export default function Gallery() {
                   </p>
                 </div>
               </TiltCard>
+            </Reveal>
+
+            <Reveal axis="left" delay={80} className="md:col-span-5">
+              <NoteCard note={notes[3]} />
             </Reveal>
           </div>
 

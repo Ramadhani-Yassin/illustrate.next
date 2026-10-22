@@ -1,7 +1,5 @@
 import type { IconName } from "../components/icons";
 
-export type ArtKey = "stone" | "dhow" | "rhythm";
-
 export type Highlight = {
   icon: IconName;
   tag: string;
@@ -18,7 +16,11 @@ export type Chapter = {
   body: string;
   coordinates: string;
   caption: string;
-  art: ArtKey;
+  image: {
+    src: string;
+    alt: string;
+    position?: string;
+  };
   highlights: Highlight[];
 };
 
@@ -34,7 +36,11 @@ export const chapters: Chapter[] = [
       "Arab dhows, Indian merchants, Portuguese forts and Swahili families folded into one peninsula. Walk it slowly: every doorway is a signature, every alley a conversation between worlds.",
     coordinates: "6°09′S · 39°11′E",
     caption: "Stone Town, at the edge of the old harbour.",
-    art: "stone",
+    image: {
+      src: "/images/stone-town.jpeg",
+      alt: "Zanzibar island life in warm evening light",
+      position: "center 55%",
+    },
     highlights: [
       {
         icon: "route",
@@ -67,7 +73,11 @@ export const chapters: Chapter[] = [
       "The same lateen sail has crossed these waters for a thousand years. Today it carries fishermen at dawn and travellers at sunset, past sandbanks that appear and vanish with the tide.",
     coordinates: "5°43′S · 39°17′E",
     caption: "A lateen sail off Nungwi, riding the monsoon.",
-    art: "dhow",
+    image: {
+      src: "/images/nungwi-dhow.jpg",
+      alt: "A dhow silhouetted against a golden Indian Ocean sunset",
+      position: "center 45%",
+    },
     highlights: [
       {
         icon: "wave",
@@ -100,7 +110,11 @@ export const chapters: Chapter[] = [
       "It is taarab drifting from a courtyard, urojo ladled at midnight, drums answering drums in Makunduchi. Culture here is not on display; it is simply how the evening begins.",
     coordinates: "6°25′S · 39°33′E",
     caption: "Drum patterns and lantern light, after the sun goes down.",
-    art: "rhythm",
+    image: {
+      src: "/images/blue-lagoon.jpg",
+      alt: "Turquoise water and pale sand on the Zanzibar coast",
+      position: "center 55%",
+    },
     highlights: [
       {
         icon: "rhythm",
